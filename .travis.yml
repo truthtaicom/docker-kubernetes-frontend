@@ -9,10 +9,14 @@ script:
   - docker run tt/docker-react npm run test -- --coverage
 
 deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
-  keep-history: true
-  local_dir: build
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: docker
+  env: Docker-env
+  bucket_name: elasticbeanstalk-us-east-2-914582270169
+  bucket_path: docker
   on:
     branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
